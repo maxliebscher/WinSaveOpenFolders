@@ -24,10 +24,27 @@ jobs:
           python-version: '3.12'
 
       - name: Install build dependency
-        run: python -m pip install --upgrade pip pyinstaller
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyinstaller
 
       - name: Build EXE
-        run: pyinstaller WinSaveOpenFolders.spec --noconfirm
+        shell: pwsh
+        run: |
+          python -m PyInstaller `
+            --noconfirm `
+            --clean `
+            --onefile `
+            --windowed `
+            --name WinSaveOpenFolders `
+            --icon assets/icon.ico `
+            --add-data "assets;assets" `
+            WinSaveOpenFolders.py
+
+      - name: Show build output
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse dist
 
       - name: Prepare release folder
         shell: pwsh
@@ -36,6 +53,8 @@ jobs:
           Copy-Item dist/WinSaveOpenFolders.exe release/
           Copy-Item LICENSE release/
           Copy-Item README.md release/
+          Copy-Item WinSaveOpenFolders.cmd release/
+          Copy-Item WinSaveOpenFolders.ps1 release/
           Compress-Archive -Path release/* -DestinationPath WinSaveOpenFolders-windows.zip -Force
 
       - name: Upload workflow artifact
@@ -43,7 +62,7 @@ jobs:
         with:
           name: WinSaveOpenFolders-windows
           path: |
-            dist/WinSaveOpenFolders.exe
+            release/*
             WinSaveOpenFolders-windows.zip
 
       - name: Create GitHub release
