@@ -13,12 +13,14 @@ That version starts the bundled **PowerShell GUI** and works on a standard Windo
 - **`WinSaveOpenFolders.cmd`** → easiest option for regular users
 - **`WinSaveOpenFolders.ps1`** → native PowerShell GUI implementation
 - **`WinSaveOpenFolders.py`** → Python version
+- **GitHub Actions EXE build** → automatic Windows `.exe` build after push
 
 ## Features
 - Saves all currently open Windows File Explorer windows to a JSON file
 - Restores the saved folders with one click
 - Very small and simple GUI
 - No Python required for the PowerShell launcher version
+- Optional automatic `.exe` build via GitHub Actions
 
 ## Run
 ### No-install Windows version
@@ -37,6 +39,16 @@ powershell -ExecutionPolicy Bypass -File .\WinSaveOpenFolders.ps1
 ```bash
 python WinSaveOpenFolders.py
 ```
+
+## Automatic EXE build with GitHub Actions
+After pushing this repository to GitHub:
+
+1. Open the **Actions** tab.
+2. Run or wait for **Build Windows EXE**.
+3. Download the artifact **WinSaveOpenFolders-windows**.
+4. If you push a tag like `v1.0.0`, GitHub will also create a release ZIP automatically.
+
+No local build tools are required for that workflow.
 
 ## Requirements
 ### For the no-install version

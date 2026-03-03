@@ -1,9 +1,16 @@
 import json
 import subprocess
+import sys
 from pathlib import Path
 from tkinter import Tk, Button, Label, messagebox
 
 SAVE_FILE_PATH = Path.home() / 'SavedFolders.json'
+
+
+def resource_path(relative_path: str) -> Path:
+    base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
+    return base_path / relative_path
+
 
 def get_open_explorer_folders() -> list[str]:
     """Return a unique list of currently open File Explorer folder paths."""
@@ -57,6 +64,13 @@ def create_gui() -> None:
     root.title('WinSaveOpenFolders')
     root.geometry('300x150')
     root.resizable(False, False)
+
+    try:
+        icon_path = resource_path('assets/icon.ico')
+        if icon_path.exists():
+            root.iconbitmap(default=str(icon_path))
+    except Exception:
+        pass
 
     Label(root, text='WinSaveOpenFolders', font=('Segoe UI', 14)).pack(pady=10)
     Button(root, text='Save Open Folders', command=save_open_folders, width=20).pack(pady=5)
