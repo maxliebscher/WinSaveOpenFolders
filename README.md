@@ -1,74 +1,46 @@
 # WinSaveOpenFolders
 
 Small Windows utility to **save** and **restore** currently open File Explorer folders.
-
 ![Screenshot](assets/screenshot.jpg)
 
-## Best option for end users
-Use the included **`WinSaveOpenFolders.cmd`** launcher.
+It provides three ways to run:
+- **EXE (recommended):** no install, just run it
+- **PowerShell GUI:** no Python needed (Windows + PowerShell)
+- **Python script:** for source users / devs
 
-That version starts the bundled **PowerShell GUI** and works on a standard Windows system **without installing Python or any dependencies**.
+## Download (Recommended)
+Go to the **Releases** section on GitHub and download the latest `WinSaveOpenFolders_Windows.zip`.
 
-## Included versions
-- **`WinSaveOpenFolders.cmd`** → easiest option for regular users
-- **`WinSaveOpenFolders.ps1`** → native PowerShell GUI implementation
-- **`WinSaveOpenFolders.py`** → Python version
-- **GitHub Actions EXE build** → automatic Windows `.exe` build after push
+## How it works
+- **Save Open Folders**: collects currently opened File Explorer windows and stores their paths.
+- **Restore Open Folders**: reopens those folders in File Explorer.
 
-## Features
-- Saves all currently open Windows File Explorer windows to a JSON file
-- Restores the saved folders with one click
-- Very small and simple GUI
-- No Python required for the PowerShell launcher version
-- Optional automatic `.exe` build via GitHub Actions
+## Run options
 
-## Run
-### No-install Windows version
-Double-click:
+### 1) EXE (No install)
+1. Download the latest release ZIP
+2. Unzip
+3. Run `WinSaveOpenFolders.exe`
 
-```text
-WinSaveOpenFolders.cmd
-```
+### 2) PowerShell version (No Python)
+Run:
+- `WinSaveOpenFolders.cmd` (double-click)
+or
+- `WinSaveOpenFolders.ps1`
 
-### PowerShell version
-```powershell
-powershell -ExecutionPolicy Bypass -File .\WinSaveOpenFolders.ps1
-```
+> If Windows blocks scripts, right-click the `.ps1` → Properties → “Unblock” (if present).
 
-### Python version
+### 3) Python version
+Requires Python 3 on Windows.
+Run:
 ```bash
+
+### Notes
+
+This tool is Windows-only.
+
+Your saved folder list is stored locally.
 python WinSaveOpenFolders.py
-```
 
-## Automatic EXE build with GitHub Actions
-After pushing this repository to GitHub:
-
-1. Open the **Actions** tab.
-2. Run or wait for **Build Windows EXE**.
-3. Download the artifact **WinSaveOpenFolders-windows**.
-4. If you push a tag like `v1.0.0`, GitHub will also create a release ZIP automatically.
-
-No local build tools are required for that workflow.
-
-## Requirements
-### For the no-install version
-- Windows
-- PowerShell (included with Windows)
-
-### For the Python version
-- Windows
-- Python 3.x
-- PowerShell
-
-## Saved file location
-```text
-%USERPROFILE%\SavedFolders.json
-```
-
-## Notes
-- The app only stores folder paths.
-- If Windows SmartScreen or script warnings appear, you may need to confirm that you want to run the file.
-- The `.cmd` launcher calls the PowerShell script with `-ExecutionPolicy Bypass` so it is easier for non-technical users to start.
-
-## License
+### License
 MIT
